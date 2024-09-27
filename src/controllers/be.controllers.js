@@ -13,7 +13,7 @@ export const getBE = async (req, res) => {
             .input("USR_Cod",USR_Cod)
             .input("USR_IdentificadorSender",USR_IdentificadorSender)
             .query("exec [spDatoRequerimientoBEJSON_Listar] @PageNumber, @RowsOfPage, @USR_Cod, @USR_IdentificadorSender");
-    res.json(JSON.parse(result.recordset[0]));
+    res.json(result.recordset)
     //res.json({"message":"Obteniendo datos de bandeja de entrada"})
 }
 
