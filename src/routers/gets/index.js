@@ -1,0 +1,1 @@
+export { default as BandejaEntrada } from "./DatoRequerimientoBE.js";

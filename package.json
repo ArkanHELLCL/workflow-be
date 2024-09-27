@@ -1,11 +1,11 @@
 {
   "name": "workflow-be",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --env-file .env src/app.js --watch",
-    "start": "node dist/app.js"
+    "dev": "node --watch --env-file .env src/index.js",
+    "start": "node dist/app.js"    
   },
   "keywords": [],
   "author": "",
@@ -13,7 +13,9 @@
   "description": "",
   "dependencies": {
     "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
     "express": "4.21.0",
-    "morgan": "1.10.0"
+    "morgan": "1.10.0",
+    "msnodesqlv8": "4.2.1"
   }
 }
