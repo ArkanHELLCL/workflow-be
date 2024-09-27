@@ -2,7 +2,7 @@
 import express, { response } from 'express'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
-import router from './routers/router.js'
+import beRoutes from './routers/be.routes.js'
 
 const app = express();
 
@@ -17,6 +17,9 @@ app.use(express.urlencoded({
 //seteamos la carpeta public para archivos estatios
 app.use(express.static('./public'));
 
+//Rutas
+app.use('/api', beRoutes);
+
 //Para eliminar el cache y que no sepueda volver con el boton de back luego de quehacemos un logout
 app.use((req, res, next) => {
     if (!req.user) {
@@ -24,9 +27,6 @@ app.use((req, res, next) => {
     }
     next();
 })
-
-//llamar al router con autenticacion ntlm
-app.use('/', router)
 
 export default app;
 

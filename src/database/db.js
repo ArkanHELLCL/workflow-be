@@ -10,7 +10,8 @@ const dbSettings = {
       trustedConnection: true
     },  
 }
-const connection = async () => {    
+const connection = async () => {
+    console.log('Conectado a la BD')
     try {
       const pool = await sql.connect(dbSettings);
       console.log('Conexion exitosa');
