@@ -18,5 +18,11 @@
     "morgan": "1.10.0",
     "msnodesqlv8": "4.2.1",
     "mssql": "11.0.1"
+  },
+  "devDependencies": {
+    "standard": "17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }

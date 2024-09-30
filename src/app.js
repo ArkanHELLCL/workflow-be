@@ -1,8 +1,9 @@
 //import fs from 'fs';
-import express, { response } from 'express'
+import express from 'express'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import beRoutes from './routers/be.routes.js'
+import bsRoutes from './routers/bs.routes.js'
 
 const app = express();
 
@@ -19,6 +20,10 @@ app.use(express.static('./public'));
 
 //Rutas
 app.use('/api', beRoutes);
+app.use('/api', bsRoutes);
+
+//Eliminacion de la cabecera x-powered-by
+app.disable('x-powered-by');
 
 //Para eliminar el cache y que no sepueda volver con el boton de back luego de quehacemos un logout
 app.use((req, res, next) => {
