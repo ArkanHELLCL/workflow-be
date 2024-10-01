@@ -10,7 +10,7 @@ router.get('/bandeja-de-entrada/:id', getBEid)
 
 router.post('/bandeja-de-entrada', postBE)
 
-router.put('/bandeja-de-entrada/:id', putBEid)
+router.patch('/bandeja-de-entrada/:id', putBEid)
 
 /* router.delete('/bandeja-de-entrada/:id', (req, res) => {
     res.json({"message":"Eliminando datos de bandeja de entrada con id: "+req.params.id})

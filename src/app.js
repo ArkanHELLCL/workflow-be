@@ -1,6 +1,7 @@
 //import fs from 'fs';
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import morgan from 'morgan'
 import beRoutes from './routers/be.routes.js'
 import bsRoutes from './routers/bs.routes.js'
@@ -11,6 +12,21 @@ const app = express();
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors({
+    origin : (origin, callback) => {        
+        const ACCEPTED_ORIGINS = [
+            'http://localhost:3000',
+            'http://localhost:3100',
+            'http://localhost:5173'
+        ]
+
+        if(ACCEPTED_ORIGINS.includes(origin) || !origin){
+            return callback(null, true);
+        }
+
+        return callback(new Error('No permitido por CORS ' + origin + ' no está en la lista blanca'));
+    }
+}));
 app.use(express.urlencoded({
     extended: true
 }));
@@ -39,3 +55,12 @@ export default app;
 /*fs.writeFile('./file.txt', text, (err) => {
   if (err) throw err;
 });*/
+
+// POST
+// Crear un elemento desde cero
+
+// PUT
+// Actualizar un elemento existente o crearlo si no existe
+
+// PATCH
+// Actualizar parcialemnte un elemento existente
