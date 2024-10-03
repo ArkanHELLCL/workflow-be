@@ -26,7 +26,6 @@ export const getBS = async (req, res) => {
                 "registros": null
             }]    
 
-        //try {
             const pool = await connection()
             const result = await pool
                     .request()
@@ -37,9 +36,6 @@ export const getBS = async (req, res) => {
                     .query("exec [spDatoRequerimientoBSJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
             data.find(el => el.id === 'be').registros = result.recordset
             res.status(200).json(data)
-        /*} catch (error) {
-            res.status(500).json({"error":500,message:error.message});
-        }*/
 
     } catch (error) {
         res.status(500).json({"error":500,message:error.message});
