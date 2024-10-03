@@ -5,6 +5,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import beRoutes from './routers/be.routes.js'
 import bsRoutes from './routers/bs.routes.js'
+import loginRoutes from './routers/login.routes.js'
 
 const app = express();
 
@@ -25,7 +26,9 @@ app.use(cors({
         }
 
         return callback(new Error('No permitido por CORS ' + origin + ' no está en la lista blanca'));
-    }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200,
 }));
 app.use(express.urlencoded({
     extended: true
@@ -37,6 +40,7 @@ app.use(express.static('./public'));
 //Rutas
 app.use('/api', beRoutes);
 app.use('/api', bsRoutes);
+app.use('/api', loginRoutes);
 
 //Eliminacion de la cabecera x-powered-by
 app.disable('x-powered-by');

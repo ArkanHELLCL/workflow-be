@@ -1,40 +1,50 @@
+import jwt from 'jsonwebtoken'
 import connection from '../database/db.js'
 import { validateReq, validatePartialReq } from '../schemas/requerimientos.js'
 
 //Bandeja de entrada
 export const getBE = async (req, res) => {
     // Crear schema para validar los datos de entrada
+    const token = req.cookies.access_token
+    if(!token){
+        res.status(403).json({"error":401,message:"No autorizado"});
+        return;
+    }
     const { PageNumber, RowsOfPage } = req.query
-    const usrCod = 5
-    const usrIdentificadorSender = "80B9DCB3-C59C-4A91-B6CE-C40907C7058B"
-    const data =  
-           [{
-              "id" : "be",
-              "registros": null
-            }]
-    
-    //const { usrCod, usrIdentificadorSender } = req.body
-    //{"usrCod":5,"usrIdentificadorSender":"80B9DCB3-C59C-4A91-B6CE-C40907C7058B"}
-    //console.log(PageNumber, RowsOfPage, usrCod, usrIdentificadorSender, req.header)
-    //if(!PageNumber || !RowsOfPage || !usrCod || !usrIdentificadorSender){
     if(!PageNumber || !RowsOfPage){
         res.status(404).json({"error":404,message:"Recurso no encontrado"});
         return;
     }    
+
+    //Rescatando datos del payload del token
     try {
-        const pool = await connection()
-        const result = await pool
-                .request()
-                .input("PageNumber", PageNumber)
-                .input("RowsOfPage", RowsOfPage)
-                .input("usrCod",usrCod)
-                .input("usrIdentificadorSender",usrIdentificadorSender)
-                .query("exec [spDatoRequerimientoBEJSON_Listar] @PageNumber, @RowsOfPage, @usrCod, @usrIdentificadorSender");
-        data.find(el => el.id === 'be').registros = result.recordset
-        res.status(200).json(data)
+        const datajwt = jwt.verify(token, process.env.JWT_SECRETO)        
+        const { usrId, usrIdentificadorSender } = datajwt
+        
+        const data =  
+            [{
+                "id" : "be",
+                "registros": null
+            }]    
+
+        //try {
+            const pool = await connection()
+            const result = await pool
+                    .request()
+                    .input("PageNumber", PageNumber)
+                    .input("RowsOfPage", RowsOfPage)
+                    .input("usrId",usrId)
+                    .input("usrIdentificadorSender",usrIdentificadorSender)
+                    .query("exec [spDatoRequerimientoBEJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
+            data.find(el => el.id === 'be').registros = result.recordset
+            res.status(200).json(data)
+        /*} catch (error) {
+            res.status(500).json({"error":500,message:error.message});
+        }*/
+
     } catch (error) {
         res.status(500).json({"error":500,message:error.message});
-    }
+    }    
 }
 
 export const getBEid = async (req, res) => {
