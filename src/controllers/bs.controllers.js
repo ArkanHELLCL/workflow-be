@@ -34,7 +34,7 @@ export const getBS = async (req, res) => {
                     .input("usrId",usrId)
                     .input("usrIdentificadorSender",usrIdentificadorSender)
                     .query("exec [spDatoRequerimientoBSJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
-            data.find(el => el.id === 'be').registros = result.recordset
+            data.find(el => el.id === 'bs').registros = result.recordset
             res.status(200).json(data)
 
     } catch (error) {
@@ -55,7 +55,7 @@ export const postBS = async (req, res) => {
         res.status(400).json({ "error": 400, "message": JSON.parse(result.error.message )})
         return
     }
-    res.status(201).json({"message":"Guardando datos de bandeja de entrada"})
+    res.status(201).json({"message":"Guardando datos de bandeja de salida"})
 }
 
 export const putBSid = (req, res) => {
@@ -65,5 +65,5 @@ export const putBSid = (req, res) => {
         res.status(400).json({ "error": 400, "message": JSON.parse(result.error.message )})
         return
     }
-    res.status(201).json({"message":"Actualizando datos de bandeja de entrada con id: " + id})
+    res.status(201).json({"message":"Actualizando datos de bandeja de salida con id: " + id})
 }

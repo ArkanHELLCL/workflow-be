@@ -5,6 +5,11 @@ import cors from 'cors'
 import morgan from 'morgan'
 import beRoutes from './routers/be.routes.js'
 import bsRoutes from './routers/bs.routes.js'
+import bfRoutes from './routers/bf.routes.js'
+import boRoutes from './routers/bo.routes.js'
+import baRoutes from './routers/ba.routes.js'
+import bncRoutes from './routers/bnc.routes.js'
+import bnwRoutes from './routers/bnw.routes.js'
 import loginRoutes from './routers/login.routes.js'
 
 const app = express();
@@ -40,6 +45,11 @@ app.use(express.static('./public'));
 //Rutas
 app.use('/api', beRoutes);
 app.use('/api', bsRoutes);
+app.use('/api', bfRoutes);
+app.use('/api', boRoutes);
+app.use('/api', baRoutes);
+app.use('/api', bncRoutes);
+app.use('/api', bnwRoutes);
 app.use('/api', loginRoutes);
 
 //Eliminacion de la cabecera x-powered-by
