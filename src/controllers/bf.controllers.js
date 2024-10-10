@@ -21,10 +21,10 @@ export const getBF = async (req, res) => {
         const { usrId, usrIdentificadorSender } = datajwt
         
         const data =  
-            [{
+            {
                 "id" : "bf",
                 "registros": null
-            }]    
+            }  
 
             const pool = await connection()
             const result = await pool
@@ -34,7 +34,8 @@ export const getBF = async (req, res) => {
                     .input("usrId",usrId)
                     .input("usrIdentificadorSender",usrIdentificadorSender)
                     .query("exec [spDatoRequerimientoBFJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
-            data.find(el => el.id === 'bf').registros = result.recordset
+            //data.find(el => el.id === 'bo').registros = result.recordset
+            data.registros = result.recordset
             res.status(200).json(data)
 
     } catch (error) {
