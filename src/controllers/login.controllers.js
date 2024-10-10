@@ -21,7 +21,7 @@ const user = {
     "bandejas": [{
             "id" : "be",
             "descripction": "Bandeja de entrada",
-            "url": "/api/bandeja-de-entradax",
+            "url": "/api/bandeja-de-entrada",
         },
         {
             "id" : "bs",
