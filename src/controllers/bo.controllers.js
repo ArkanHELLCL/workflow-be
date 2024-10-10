@@ -39,7 +39,7 @@ export const getBO = async (req, res) => {
             res.status(200).json(data)
 
     } catch (error) {
-        res.status(500).json({"error":500,message:error.message});
+        res.status(500).json({"id":"bo","error":500,message:error.message});
     }    
 }
 

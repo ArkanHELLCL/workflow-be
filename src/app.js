@@ -52,6 +52,10 @@ app.use('/api', bncRoutes);
 app.use('/api', bnwRoutes);
 app.use('/api', loginRoutes);
 
+app.get('*', (req, res) => {
+    res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
+});
+
 //Eliminacion de la cabecera x-powered-by
 app.disable('x-powered-by');
 

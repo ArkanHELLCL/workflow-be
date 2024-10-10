@@ -17,7 +17,7 @@ router.patch('/bandeja-de-entrada/:id', putBEid)
 }) */
 
 // The 404 Route (ALWAYS Keep this as the last route)
-/* router.get('*', function (req, res) {
+/*router.get('*', function (req, res) {
     res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
 });
 router.post('*', function (req, res) {
@@ -25,6 +25,9 @@ router.post('*', function (req, res) {
 });
 router.put('*', function (req, res) {
     res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
-}); */
+});
+router.patch('*', function (req, res) {
+    res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
+});*/
 
 export default router
