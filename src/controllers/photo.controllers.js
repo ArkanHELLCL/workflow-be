@@ -6,7 +6,7 @@ const client = ldap.createClient({
     timeout:9000,
     connectTimeout:9000,
     idleTimeout:9000,
-    reconnect:true
+    reconnect:false
 })
 
 const config = {
@@ -60,6 +60,7 @@ export const getPhotoid = async (req, res) => {
 
         //Conectando con LDAP
         client.bind('cn=tic, OU=Informatica,OU=MINTRAB_GENERICOS,DC=MINTRAB,DC=MS','Usuario2018', (err) => {
+            console.log('Error en bind ldap', err)
         })
         var opts = {
             filter: '(mail=' + id + '@*)',
