@@ -59,7 +59,7 @@ export const postBS = async (req, res) => {
     res.status(201).json({"message":"Guardando datos de bandeja de salida"})
 }
 
-export const putBSid = (req, res) => {
+export const patchBSid = (req, res) => {
     const { id } = req.params
     const result = validatePartialReq(req.body)
     if (!result.success) {

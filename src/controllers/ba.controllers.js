@@ -59,7 +59,7 @@ export const postBA = async (req, res) => {
     res.status(201).json({"message":"Guardando datos de bandeja de archivados"})
 }
 
-export const putBAid = (req, res) => {
+export const patchBAid = (req, res) => {
     const { id } = req.params
     const result = validatePartialReq(req.body)
     if (!result.success) {

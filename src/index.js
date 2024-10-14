@@ -22,20 +22,25 @@ const io = new SocketServer(server, {
 })
 
 //listener
-io.on('connection', (socket) => {
-    console.log('Usuario conectado', socket.id)
-    socket.on('disconnect', () => {
-        console.log('Usuario desconectado', socket.id)
-    })
-    socket.on('mensaje', (data) => {
-        console.log(data)
-        socket.broadcast.emit('mensaje', {
-            body: 'Hola a todos',
-            from: socket.id
+try{
+    io.on('connection', (socket) => {
+        console.log('Usuario conectado', socket.id)
+        socket.on('disconnect', () => {
+            console.log('Usuario desconectado', socket.id)
         })
-        //io.emit('mensaje', data)
+        socket.on('mensaje', (data) => {
+            console.log(data)
+            socket.broadcast.emit('mensaje', {
+                body: 'Hola a todos',
+                from: socket.id
+            })
+            //io.emit('mensaje', data)
+        })
     })
-})
+}
+catch(error){
+    console.log('Error en socket.io', error)
+}
 
 // Iniciar servidor
 //app.listen(app.get('port'), () => {

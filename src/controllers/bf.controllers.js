@@ -59,7 +59,7 @@ export const postBF = async (req, res) => {
     res.status(201).json({"message":"Guardando datos de bandeja de finalizados"})
 }
 
-export const putBFid = (req, res) => {
+export const patchBFid = (req, res) => {
     const { id } = req.params
     const result = validatePartialReq(req.body)
     if (!result.success) {

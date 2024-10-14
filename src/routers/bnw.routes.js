@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getBNW, getBNWid, postBNW, putBNWid } from '../controllers/bnw.controllers.js'
+import { getBNW, getBNWid, postBNW, patchBNWid } from '../controllers/bnw.controllers.js'
 
 const router = Router()
 
@@ -10,7 +10,7 @@ router.get('/bandeja-antiguos-workflowv1/:id', getBNWid)
 
 router.post('/bandeja-antiguos-workflowv1', postBNW)
 
-router.patch('/bandeja-antiguos-workflowv1/:id', putBNWid)
+router.patch('/bandeja-antiguos-workflowv1/:id', patchBNWid)
 
 /*router.delete('/bandeja-de-entrada/:id', (req, res) => {
     res.json({"message":"Eliminando datos de bandeja de entrada con id: "+req.params.id})

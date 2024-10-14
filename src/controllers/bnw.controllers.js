@@ -59,7 +59,7 @@ export const postBNW = async (req, res) => {
     res.status(201).json({"message":"Guardando datos de bandeja antiguos workflowv1"})
 }
 
-export const putBNWid = (req, res) => {
+export const patchBNWid = (req, res) => {
     const { id } = req.params
     const result = validatePartialReq(req.body)
     if (!result.success) {

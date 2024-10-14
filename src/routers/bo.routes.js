@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getBO, getBOid, postBO, putBOid } from '../controllers/bo.controllers.js'
+import { getBO, getBOid, postBO, patchBOid } from '../controllers/bo.controllers.js'
 
 const router = Router()
 
@@ -10,7 +10,7 @@ router.get('/bandeja-de-otros/:id', getBOid)
 
 router.post('/bandeja-de-otros', postBO)
 
-router.patch('/bandeja-de-otros/:id', putBOid)
+router.patch('/bandeja-de-otros/:id', patchBOid)
 
 /*router.delete('/bandeja-de-entrada/:id', (req, res) => {
     res.json({"message":"Eliminando datos de bandeja de entrada con id: "+req.params.id})

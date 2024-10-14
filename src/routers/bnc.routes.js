@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getBNC, getBNCid, postBNC, putBNCid } from '../controllers/bnc.controllers.js'
+import { getBNC, getBNCid, postBNC, patchBNCid } from '../controllers/bnc.controllers.js'
 
 const router = Router()
 
@@ -10,7 +10,7 @@ router.get('/bandeja-antiguos-compra/:id', getBNCid)
 
 router.post('/bandeja-antiguos-compra', postBNC)
 
-router.patch('/bandeja-antiguos-compra/:id', putBNCid)
+router.patch('/bandeja-antiguos-compra/:id', patchBNCid)
 
 /*router.delete('/bandeja-de-entrada/:id', (req, res) => {
     res.json({"message":"Eliminando datos de bandeja de entrada con id: "+req.params.id})

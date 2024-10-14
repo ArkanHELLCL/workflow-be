@@ -59,7 +59,7 @@ export const postBNC = async (req, res) => {
     res.status(201).json({"message":"Guardando datos de bandeja antiguos compras"})
 }
 
-export const putBNCid = (req, res) => {
+export const patchBNCid = (req, res) => {
     const { id } = req.params
     const result = validatePartialReq(req.body)
     if (!result.success) {
