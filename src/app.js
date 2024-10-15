@@ -11,6 +11,7 @@ import baRoutes from './routers/ba.routes.js'
 import bncRoutes from './routers/bnc.routes.js'
 import bnwRoutes from './routers/bnw.routes.js'
 import loginRoutes from './routers/login.routes.js'
+import logoutRoutes from './routers/logout.routes.js'
 import photoRoutes from './routers/photo.routes.js'
 
 const app = express();
@@ -52,6 +53,7 @@ app.use('/api', baRoutes);
 app.use('/api', bncRoutes);
 app.use('/api', bnwRoutes);
 app.use('/api', loginRoutes);
+app.use('/api', logoutRoutes);
 app.use('/api', photoRoutes);
 
 app.get('*', (req, res) => {
