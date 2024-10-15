@@ -3,11 +3,15 @@ import ldap from 'ldapjs'
 
 const client = ldap.createClient({
     url:[process.env.LDAP_URL,process.env.LDAP_URL2],        
-    timeout:9000,
+    /*timeout:9000,
     connectTimeout:9000,
     idleTimeout:9000,
-    reconnect:false
+    reconnect:false*/
 })
+
+client.on('error', error => {
+    console.error(error)
+});
 
 const config = {
     url:process.env.LDAP_URL,
@@ -21,7 +25,7 @@ function getProperObject(entry) {
     };
     entry.attributes.forEach(function (a) {
         var buf = a.buffers;
-        var val = a.vals;
+        var val = a.values;
         var item;
         if ( a?.type === 'thumbnailPhoto' )
             item = buf;
@@ -77,6 +81,7 @@ export const getPhotoid = async (req, res) => {
                         'Content-Type': 'image/jpg',
                         'Content-Length': imgbase64.length
                     });
+                    //client.unbind();
                     res.send(imgbase64);
                 }else{
                     res.send(null)
