@@ -1,18 +1,6 @@
 import jwt from 'jsonwebtoken'
 import ldap from 'ldapjs'
 
-const client = ldap.createClient({
-    url:[process.env.LDAP_URL,process.env.LDAP_URL2],        
-    /*timeout:9000,
-    connectTimeout:9000,
-    idleTimeout:9000,
-    reconnect:false*/
-})
-
-client.on('error', error => {
-    console.error(error)
-});
-
 const config = {
     url:process.env.LDAP_URL,
     baseDN:process.env.LDAP_BASEDN
@@ -49,6 +37,19 @@ function getProperObject(entry) {
 
 //Foto usuario desde LDAP
 export const getPhotoid = async (req, res) => {
+    const client = ldap.createClient({
+        url:[process.env.LDAP_URL,process.env.LDAP_URL2],        
+        /*timeout:9000,
+        connectTimeout:9000,
+        idleTimeout:9000,
+        reconnect:false*/
+    })
+    
+    client.on('error', error => {
+        console.error(error)
+    });
+
+
     const { id } = req.params
     // Crear schema para validar los datos de entrada
     const token = req.cookies.access_token
@@ -59,8 +60,16 @@ export const getPhotoid = async (req, res) => {
     
     //Rescatando datos del payload del token
     try {
-        const datajwt = jwt.verify(token, process.env.JWT_SECRETO)        
-        const { usrId, usrIdentificadorSender } = datajwt
+        let usrId
+        let usrIdentificadorSender
+        jwt.verify(token, process.env.JWT_SECRETO, function(err, decoded) {            
+            if (err) {                
+                throw new Error('No autorizado')
+            }
+            const { usrId : usr_Id, usrIdentificadorSender : usr_IdentificadorSender } = decoded
+            usrId = usr_Id
+            usrIdentificadorSender = usr_IdentificadorSender
+        })
 
         //Conectando con LDAP
         client.bind('cn=tic, OU=Informatica,OU=MINTRAB_GENERICOS,DC=MINTRAB,DC=MS','Usuario2018', (err) => {
@@ -81,9 +90,10 @@ export const getPhotoid = async (req, res) => {
                         'Content-Type': 'image/jpg',
                         'Content-Length': imgbase64.length
                     });
-                    //client.unbind();
+                    client.unbind();                    
                     res.send(imgbase64);
                 }else{
+                    client.unbind();
                     res.send(null)
                 }
                 return
@@ -105,9 +115,11 @@ export const getPhotoid = async (req, res) => {
             
         });
 
-    }
-    catch (error) {
+    }catch (error) {
+        if(error.message === 'No autorizado'){
+            res.status(401).json({"error":401,message:error.message});
+            return;
+        }
         res.status(500).json({"id":"photo","error":500,message:error.message});
-    }
-    //res.status(200).json({"message":"Obteniento datos de bandeja de salida con id: " + id})
+    }    
 }

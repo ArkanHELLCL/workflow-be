@@ -6,7 +6,7 @@ export const getBF = async (req, res) => {
     // Crear schema para validar los datos de entrada
     const token = req.cookies.access_token
     if(!token){
-        res.status(403).json({"error":401,message:"No autorizado"});
+        res.status(401).json({"error":401,message:"No autorizado"});
         return;
     }
     const { PageNumber, RowsOfPage } = req.query
@@ -17,9 +17,16 @@ export const getBF = async (req, res) => {
 
     //Rescatando datos del payload del token
     try {
-        const datajwt = jwt.verify(token, process.env.JWT_SECRETO)        
-        const { usrId, usrIdentificadorSender } = datajwt
-        
+        let usrId
+        let usrIdentificadorSender
+        jwt.verify(token, process.env.JWT_SECRETO, function(err, decoded) {            
+            if (err) {                
+                throw new Error('No autorizado')
+            }
+            const { usrId : usr_Id, usrIdentificadorSender : usr_IdentificadorSender } = decoded
+            usrId = usr_Id
+            usrIdentificadorSender = usr_IdentificadorSender
+        })
         const data =  
             {
                 "id" : "bf",
@@ -38,9 +45,13 @@ export const getBF = async (req, res) => {
             data.registros = result.recordset
             res.status(200).json(data)
 
-    } catch (error) {
-        res.status(500).json({"id":"bf","error":500,message:error.message});
-    }    
+        }catch (error) {
+            if(error.message === 'No autorizado'){
+                res.status(401).json({"id":"bf","error":401,message:error.message});
+                return;
+            }
+            res.status(500).json({"id":"bf","error":500,message:error.message});
+        }  
 }
 
 export const getBFid = async (req, res) => {

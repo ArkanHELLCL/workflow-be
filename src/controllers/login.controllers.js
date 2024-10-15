@@ -492,8 +492,10 @@ export const postLogin = async (req, res) => {
         return;
     }
     try {
-        const usrId = 5
-        const usrIdentificadorSender = "80B9DCB3-C59C-4A91-B6CE-C40907C7058B"            
+        const usrId = user.USR_Id
+        const usrIdentificadorSender = user.USR_Identificador
+        const perId = user.PER_Id
+        const depId = user.DEP_Id
 
         /*const pool = await connection()
         const result = await pool
@@ -502,7 +504,7 @@ export const postLogin = async (req, res) => {
                 .query("exec [spUsuario_Consultar] @usrId");*/
         
         //Token de autenticación
-        const token = jwt.sign({usrId,usrIdentificadorSender}, process.env.JWT_SECRETO, {expiresIn: '1h'})
+        const token = jwt.sign({usrId,usrIdentificadorSender,perId,depId}, process.env.JWT_SECRETO, {expiresIn: '1h'})
         //Creacion de cookie con el token
         res        
             .cookie('access_token', token, {
