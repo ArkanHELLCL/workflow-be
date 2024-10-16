@@ -18,6 +18,8 @@ import listasdesplegableRoutes from './routers/listasdesplegable.routes.js'
 import itemlistadesplegableRoutes from './routers/itemlistadesplegable.routes.js'
 import proveedoresRoutes from './routers/proveedores.routes.js'
 import comunasRoutes from './routers/comunas.routes.js'
+import ordenesdecompraRoutes from './routers/ordenesdecompra.routes.js'
+import diasporusuarioRoutes from './routers/diasporusuario.routes.js'
 
 const app = express();
 
@@ -65,6 +67,8 @@ app.use('/api', listasdesplegableRoutes);
 app.use('/api', itemlistadesplegableRoutes);
 app.use('/api', proveedoresRoutes);
 app.use('/api', comunasRoutes);
+app.use('/api', ordenesdecompraRoutes);
+app.use('/api', diasporusuarioRoutes);
 
 app.get('*', (req, res) => {
     res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
