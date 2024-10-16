@@ -3,7 +3,7 @@ import connection from '../database/db.js'
 //import { validateReq, validatePartialReq } from '../schemas/requerimientos.js'
 
 //Bandeja de entrada
-export const getUsuarios = async (req, res) => {
+export const getListasDesplegable = async (req, res) => {
     // Crear schema para validar los datos de entrada
     const token = req.cookies.access_token
     if(!token){
@@ -30,7 +30,7 @@ export const getUsuarios = async (req, res) => {
         })
         const data =  
             {
-                "id" : "mu",                
+                "id" : "ml",                
                 "registros": null
             }  
 
@@ -41,26 +41,26 @@ export const getUsuarios = async (req, res) => {
                     .input("RowsOfPage", RowsOfPage)
                     .input("usrId",usrId)
                     .input("usrIdentificadorSender",usrIdentificadorSender)
-                    .query("exec [spUsuariosJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
+                    .query("exec [spListasDesplegableJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
             
             data.registros = result.recordset
             res.status(200).json(data)        
 
     }catch (error) {
         if(error.message === 'No autorizado'){
-            res.status(401).json({"id":"mu","error":401,message:error.message});
+            res.status(401).json({"id":"ml","error":401,message:error.message});
             return;
         }
-        res.status(500).json({"id":"mu","error":500,message:error.message});
+        res.status(500).json({"id":"ml","error":500,message:error.message});
     }
 }
 
-export const getUsuariosid = async (req, res) => {
+export const getListasDesplegableid = async (req, res) => {
     const { id } = req.params
-    res.status(200).json({"message":"Obteniento datos del mantenedor de usuarios con id: " + id})
+    res.status(200).json({"message":"Obteniento datos del mantenedor de Listas Desplegable con id: " + id})
 }
 
-export const postUsuarios = async (req, res) => {
+export const postListasDesplegable = async (req, res) => {
     // Ejemplo de validación de datos con zod
     // Se debe validar todos los campos que se reciben
     const result = await validateReq(req.body)
@@ -68,15 +68,15 @@ export const postUsuarios = async (req, res) => {
         res.status(400).json({ "error": 400, "message": JSON.parse(result.error.message )})
         return
     }
-    res.status(201).json({"message":"Guardando datos de Usuario"})
+    res.status(201).json({"message":"Guardando datos de Lista Desplegable"})
 }
 
-export const patchUsuariosid = (req, res) => {
+export const patchListasDesplegableid = (req, res) => {
     const { id } = req.params
     const result = validatePartialReq(req.body)
     if (!result.success) {
         res.status(400).json({ "error": 400, "message": JSON.parse(result.error.message )})
         return
     }
-    res.status(201).json({"message":"Actualizando datos de Usuario con id: " + id})
+    res.status(201).json({"message":"Actualizando datos de Lista Desplegable con id: " + id})
 }
