@@ -15,6 +15,7 @@ import logoutRoutes from './routers/logout.routes.js'
 import photoRoutes from './routers/photo.routes.js'
 import usuariosRoutes from './routers/usuarios.routes.js'
 import listasdesplegableRoutes from './routers/listasdesplegable.routes.js'
+import itemlistadesplegableRoutes from './routers/itemlistadesplegable.routes.js'
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/api', logoutRoutes);
 app.use('/api', photoRoutes);
 app.use('/api', usuariosRoutes);
 app.use('/api', listasdesplegableRoutes);
+app.use('/api', itemlistadesplegableRoutes);
 
 app.get('*', (req, res) => {
     res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
