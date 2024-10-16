@@ -13,6 +13,7 @@ import bnwRoutes from './routers/bnw.routes.js'
 import loginRoutes from './routers/login.routes.js'
 import logoutRoutes from './routers/logout.routes.js'
 import photoRoutes from './routers/photo.routes.js'
+import usuariosRoutes from './routers/usuarios.routes.js'
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use('/api', bnwRoutes);
 app.use('/api', loginRoutes);
 app.use('/api', logoutRoutes);
 app.use('/api', photoRoutes);
+app.use('/api', usuariosRoutes);
 
 app.get('*', (req, res) => {
     res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
