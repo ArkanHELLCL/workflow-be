@@ -45,7 +45,7 @@ const bandejas = [{
    {
       "id": "je",
       "description": "Bandeja entrada mensajes",
-      "url": "/api/bandeja-entrada-mensajes",
+      "url": "/api/mensajes/bandeja-entrada",
       "load": true
    }
 ]
