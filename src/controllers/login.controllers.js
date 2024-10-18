@@ -1,40 +1,53 @@
 import jwt from 'jsonwebtoken'
 import connection from '../database/db.js'
 const bandejas = [{
-   "id" : "be",
-   "descripction": "Bandeja de entrada",
-   "url": "/api/bandeja-de-entrada",
-},
-{
-   "id" : "bs",
-   "descripction": "Bandeja de salida",
-   "url": "/api/bandeja-de-salida",
-},
-{
-   "id": "bf",
-   "descripction": "Bandeja de finalizados",
-   "url": "/api/bandeja-de-finalizados"
-},
-{
-   "id": "ba",
-   "descripction": "Bandeja de archivados",
-   "url": "/api/bandeja-de-archivados"
-},
-{
-   "id": "bo",
-   "descripction": "Bandeja de otros",
-   "url": "/api/bandeja-de-otros"
-},
-{
-   "id": "bnc",
-   "descripction": "Bandeja antiguos compra",
-   "url": "/api/bandeja-antiguos-compra"
-},
-{
-   "id": "bnw",
-   "descripction": "Bandeja antiguos workflowv1",
-   "url": "/api/bandeja-antiguos-workflowv1"
-}
+      "id" : "be",
+      "description": "Bandeja de entrada",
+      "url": "/api/bandeja-de-entrada",
+      "load": true
+   },
+   {
+      "id" : "bs",
+      "description": "Bandeja de salida",
+      "url": "/api/bandeja-de-salida",
+      "load": true
+   },
+   {
+      "id": "bf",
+      "description": "Bandeja de finalizados",
+      "url": "/api/bandeja-de-finalizados",
+      "load": true
+   },
+   {
+      "id": "ba",
+      "description": "Bandeja de archivados",
+      "url": "/api/bandeja-de-archivados",
+      "load": true
+   },
+   {
+      "id": "bo",
+      "description": "Bandeja de otros",
+      "url": "/api/bandeja-de-otros",
+      "load": true
+   },
+   {
+      "id": "bnc",
+      "description": "Bandeja antiguos compra",
+      "url": "/api/bandeja-antiguos-compra",
+      "load": false
+   },
+   {
+      "id": "bnw",
+      "description": "Bandeja antiguos workflowv1",
+      "url": "/api/bandeja-antiguos-workflowv1",
+      "load": false
+   },
+   {
+      "id": "je",
+      "description": "Bandeja entrada mensajes",
+      "url": "/api/bandeja-entrada-mensajes",
+      "load": true
+   }
 ]
 
 const treeMenu = {
