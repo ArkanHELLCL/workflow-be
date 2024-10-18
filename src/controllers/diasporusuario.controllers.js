@@ -10,16 +10,12 @@ export const getDiasporUsuario = async (req, res) => {
         res.status(401).json({"error":401,message:"No autorizado"});
         return;
     }
-    /*const { PageNumber, RowsOfPage } = req.query
-    if(!PageNumber || !RowsOfPage){
+    const { repFechaDesde, repFechaHasta, repUsrId } = req.query
+    if(!repFechaDesde || !repFechaHasta || !repUsrId){
         res.status(404).json({"error":404,message:"Recurso no encontrado"});
         return;
-    }*/
-    const  { repFechaDesde, repFechaHasta, repUsrId } = req.query
-    const repAnio = repFechaDesde.$y
-    const repMes = repFechaDesde.$M + 1
-
-    console.log('ru', repFechaDesde, repFechaHasta, repUsrId)
+    }    
+    
     //Rescatando datos del payload del token
     try {
         let usrId
@@ -32,8 +28,7 @@ export const getDiasporUsuario = async (req, res) => {
             usrId = usr_Id
             usrIdentificadorSender = usr_IdentificadorSender
         })
-        const data =  
-            {
+        const data = {
                 "id" : "ru",
                 "columns" : [
                     {
@@ -104,19 +99,18 @@ export const getDiasporUsuario = async (req, res) => {
                         "width": 100
                     }
                 ],                
-                "rows": null
-            }  
+                "rows": []
+            }            
 
             const pool = await connection()
             const result = await pool
                     .request()
+                    .input("repFechaDesde", repFechaDesde)
+                    .input("repFechaHasta",repFechaHasta)
                     .input("repUsrId", repUsrId)
-                    .input("repAnio", repAnio)
-                    .input("repMes", repMes)
-                    //.input("usrId",usrId)
-                    //.input("usrIdentificadorSender",usrIdentificadorSender)
-                    //.query("exec [spInformeDiasxUsuarioo_Listar] @repUsrId, @repAnio, @repMes, @usrId, @usrIdentificadorSender");
-                    .query("exec [spInformeDiasxUsuarioo_Listar] @repUsrId, @repAnio, @repMes");
+                    .input("usrId",usrId)
+                    .input("usrIdentificadorSender",usrIdentificadorSender)                    
+                    .query("exec [spInformeDiasxUsuarioJSON_Listar] @repFechaDesde, @repFechaHasta, @repUsrId, @usrId, @usrIdentificadorSender");
             
             data.rows = result.recordset
             res.status(200).json(data)        
