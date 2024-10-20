@@ -18,6 +18,7 @@ const connection = async () => {
       return pool;
     } catch (error) {
       console.log('Error en la conexión:',error);
+      throw new Error('Servidor de base de datos no disponible');
     }
 };
 
