@@ -3,24 +3,24 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import morgan from 'morgan'
-import beRoutes from './routers/be.routes.js'
-import bsRoutes from './routers/bs.routes.js'
-import bfRoutes from './routers/bf.routes.js'
-import boRoutes from './routers/bo.routes.js'
-import baRoutes from './routers/ba.routes.js'
-import bncRoutes from './routers/bnc.routes.js'
-import bnwRoutes from './routers/bnw.routes.js'
-import loginRoutes from './routers/login.routes.js'
-import logoutRoutes from './routers/logout.routes.js'
-import photoRoutes from './routers/photo.routes.js'
-import usuariosRoutes from './routers/usuarios.routes.js'
-import listasdesplegableRoutes from './routers/listasdesplegable.routes.js'
-import itemlistadesplegableRoutes from './routers/itemlistadesplegable.routes.js'
-import proveedoresRoutes from './routers/proveedores.routes.js'
-import comunasRoutes from './routers/comunas.routes.js'
-import ordenesdecompraRoutes from './routers/ordenesdecompra.routes.js'
-import diasporusuarioRoutes from './routers/diasporusuario.routes.js'
-import jrRoutes from './routers/jr.routes.js'
+import beRoutes from './routers/bandejas/be.routes.js'
+import bsRoutes from './routers/bandejas/bs.routes.js'
+import bfRoutes from './routers/bandejas/bf.routes.js'
+import boRoutes from './routers/bandejas/bo.routes.js'
+import baRoutes from './routers/bandejas/ba.routes.js'
+import bncRoutes from './routers/bandejas/bnc.routes.js'
+import bnwRoutes from './routers/bandejas/bnw.routes.js'
+import loginRoutes from './routers/usuario/login.routes.js'
+import logoutRoutes from './routers/usuario/logout.routes.js'
+import photoRoutes from './routers/usuario/photo.routes.js'
+import usuariosRoutes from './routers/mantenedores/usuarios.routes.js'
+import listasdesplegableRoutes from './routers/mantenedores/listasdesplegable.routes.js'
+import itemlistadesplegableRoutes from './routers/mantenedores/itemlistadesplegable.routes.js'
+import proveedoresRoutes from './routers/mantenedores/proveedores.routes.js'
+import comunasRoutes from './routers/mantenedores/comunas.routes.js'
+import ordenesdecompraRoutes from './routers/reportes/ordenesdecompra.routes.js'
+import diasporusuarioRoutes from './routers/reportes/diasporusuario.routes.js'
+import jrRoutes from './routers/mensajes/jr.routes.js'
 
 const app = express();
 
@@ -73,6 +73,10 @@ app.use('/api', diasporusuarioRoutes);
 app.use('/api', jrRoutes);
 
 app.get('*', (req, res) => {
+    res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
+});
+
+app.post('*', (req, res) => {
     res.status(404).json({"error":404,message:"No se encontró la ruta solicitada"});
 });
 
