@@ -31,7 +31,65 @@ export const getJR = async (req, res) => {
         const data =  
             {
                 "id" : "jr",
-                "registros": null
+                "registros": null,
+                "botones":[
+                    [
+                        {
+                              "id" : "grp_1",
+                              "nombre" : "Responder/Reenviar",
+                              "descripcion" : "Responder/Reenviar",
+                              "botones" : [
+                                 {
+                                    "id" : "btn_responder",
+                                    "nombre" : "Responder",
+                                    "descripcion" : ["Responder","Mensaje"],
+                                    "type" : "button",
+                                    "dialogo":"confirm",
+                                    "titulo":"Responder mensaje",
+                                    "mensaje":"¿Estas seguro de querer responder este mensaje?",
+                                    "tooltiptext":"Responder este mensaje al remitente.",
+                                    "btns.formulario":"frmWFMessages"
+                                 },
+                                 {
+                                    "id" : "btn_reenviar",
+                                    "nombre" : "Reenviar",
+                                    "descripcion" : ["Reenviar","Mensaje"],
+                                    "type" : "button",
+                                    "dialogo":"confirm",
+                                    "titulo":"Reenviar Mensaje",
+                                    "mensaje":"¿Estas seguro de querer reenviar este mensaje a otro destinatario?",
+                                    "tooltiptext":"Reenviar este mensaje a otro destinatario.",
+                                    "btns.formulario":"frmWFMessages"
+                                 }
+                              ]
+                        }
+                    ],
+                    [
+                        {
+                              "id" : "grp_2",
+                              "nombre" :"Revisar",
+                              "descripcion" : "Revisar",
+                              "botones" : [
+                                 {
+                                    "id":"btn_retroceder",
+                                    "nombre":"",
+                                    "descripcion":["Ir al Mensaje","Anterior"],
+                                    "type" : "button",
+                                    "tooltiptext":"Ir al mensaje anterior",
+                                    "btns.formulario":"frmWFMessages"
+                                 },               
+                                 {
+                                    "id":"btn_avanzar",
+                                    "nombre":"",
+                                    "descripcion":["Ir al Mensaje","Siguiete"],
+                                    "type" : "button",
+                                    "tooltiptext":"Ir al mmmensaje siguiente",
+                                    "btns.formulario":"frmWFMessages"
+                                 }
+                              ]
+                        }           
+                     ]
+                ]
             }  
 
             const pool = await connection()
