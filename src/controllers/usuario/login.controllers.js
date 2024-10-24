@@ -1,54 +1,5 @@
 import jwt from 'jsonwebtoken'
 import connection from '../../database/db.js'
-const bandejas = [{
-      "id" : "be",
-      "description": "Bandeja de entrada",
-      "url": "/api/bandejas/entrada",
-      "load": true
-   },
-   {
-      "id" : "bs",
-      "description": "Bandeja de salida",
-      "url": "/api/bandejas/salida",
-      "load": true
-   },
-   {
-      "id": "bf",
-      "description": "Bandeja de finalizados",
-      "url": "/api/bandejas/finalizados",
-      "load": true
-   },
-   {
-      "id": "ba",
-      "description": "Bandeja de archivados",
-      "url": "/api/bandejas/archivados",
-      "load": true
-   },
-   {
-      "id": "bo",
-      "description": "Bandeja de otros",
-      "url": "/api/bandejas/otros",
-      "load": true
-   },
-   {
-      "id": "bnc",
-      "description": "Bandeja antiguos compra",
-      "url": "/api/bandejas/antiguos/compra",
-      "load": false
-   },
-   {
-      "id": "bnw",
-      "description": "Bandeja antiguos workflowv1",
-      "url": "/api/bandejas/antiguos/workflowv1",
-      "load": false
-   },
-   {
-      "id": "jr",
-      "description": "Bandeja entrada mensajes",
-      "url": "/api/mensajes/entrada",
-      "load": true
-   }
-]
 
 const treeMenu = {
    "flujos":[
@@ -59,56 +10,68 @@ const treeMenu = {
          {
             "id":"b",
             "label":"Bandejas",
-            "description":"Bandejas de todos los flujos",
-            "url":"/bandejas",
+            "description":"Bandejas de todos los flujos",            
             "children":[
                   {
                      "id":"be",
                      "label":"De Entrada",
                      "description":"Bandeja de Entrada",
-                     "url":"/bandejas/entrada"
+                     "url": "/api/bandejas/entrada",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bs",
                      "label":"De Salida",
                      "description":"Bandeja de Salida",
-                     "url":"/bandejas/salida"
+                     "url": "/api/bandejas/salida",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bf",
                      "label":"De Finalizados",
                      "description":"Bandeja de Finalizados",
-                     "url":"/bandejas/finalizados"        
+                     "url": "/api/bandejas/finalizados",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bo",
                      "label":"De Otros",
                      "description":"Bandeja de Otros",
-                     "url":"/bandejas/otros"
+                     "url": "/api/bandejas/otros",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"ba",
                      "label":"De Archivados",
                      "description":"Bandeja de Archivados",
-                     "url":"/bandejas/archivados"
+                     "url": "/api/bandejas/archivados",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bn",
                      "label":"De Antiguos",
-                     "description":"Bandeja de Antiguos",
-                     "url":"/bandejas/antiguos",
+                     "description":"Bandeja de Antiguos",                     
                      "children":[
                         {
                            "id":"bnc",
                            "label":"Sistema de Compras v0",
                            "description":"Requerimientos Sistema de Compras v0",
-                           "url":"/bandejas/antiguos/compras"
+                           "url": "/api/bandejas/antiguos/compra",
+                           "load": false,
+                           "showyear":true
                         },
                         {
                            "id":"bnw",
                            "label":"Sistema WorkFlow v1",
                            "description":"Requerimientos Sistema WorkFlow v1",
-                           "url":"/bandejas/antiguos/workflowv1"
+                           "url": "/api/bandejas/antiguos/workflowv1",
+                           "load": false,
+                           "showyear":true
                         }
                      ]
                   }
@@ -119,26 +82,31 @@ const treeMenu = {
          {
             "id":"r",
             "label":"Reportes",
-            "description":"Reportes de todos los flujos",
-            "url":"/reportes",
+            "description":"Reportes de todos los flujos",            
             "children": [
                   {
                      "id":"ru",
                      "label":"Dias por Usuario",
                      "description":"Reporte de Dias por Usuario",
-                     "url":"/reportes/dias-por-usuario"
+                     "url":"/reportes/dias-por-usuario",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"ro",
                      "label":"Ordenes de Compras",
                      "description":"Reporte de Ordenes de Compras",
-                     "url":"/reportes/ordenes-de-compras"
+                     "url":"/reportes/ordenes-de-compras",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"rp",
                      "label":"Seguimiento de Pagos",
                      "description":"Reporte de Seguimiento de Pagos",
-                     "url":"/reportes/seguimiento-de-pagos"
+                     "url":"/reportes/seguimiento-de-pagos",
+                     "load": false,
+                     "showyear":true
                   }
             ]
          }
@@ -151,86 +119,103 @@ const treeMenu = {
          {
             "id":"b",
             "label":"Bandejas",
-            "description":"Bandejas de Compras",
-            "url":"/bandejas",
+            "description":"Bandejas de todos los flujos",            
             "children":[
                   {
                      "id":"be",
                      "label":"De Entrada",
                      "description":"Bandeja de Entrada",
-                     "url":"/bandejas/entrada"              
+                     "url": "/api/bandejas/entrada",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bs",
                      "label":"De Salida",
                      "description":"Bandeja de Salida",
-                     "url":"/bandejas/salida"               
+                     "url": "/api/bandejas/salida",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bf",
                      "label":"De Finalizados",
                      "description":"Bandeja de Finalizados",
-                     "url":"/bandejas/finalizados"            
+                     "url": "/api/bandejas/finalizados",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bo",
                      "label":"De Otros",
                      "description":"Bandeja de Otros",
-                     "url":"/bandejas/otros"              
+                     "url": "/api/bandejas/otros",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"ba",
                      "label":"De Archivados",
                      "description":"Bandeja de Archivados",
-                     "url":"/bandejas/archivados"               
+                     "url": "/api/bandejas/archivados",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bn",
                      "label":"De Antiguos",
-                     "description":"Bandeja de Antiguos",
-                     "url":"/bandejas/antiguos",
+                     "description":"Bandeja de Antiguos",                     
                      "children":[
                         {
                            "id":"bnc",
                            "label":"Sistema de Compras v0",
                            "description":"Requerimientos Sistema de Compras v0",
-                           "url":"/bandejas/antiguos/compras"                
+                           "url": "/api/bandejas/antiguos/compra",
+                           "load": false,
+                           "showyear":true
                         },
                         {
                            "id":"bnw",
                            "label":"Sistema WorkFlow v1",
                            "description":"Requerimientos Sistema WorkFlow v1",
-                           "url":"/bandejas/antiguos/workflowv1"                              
+                           "url": "/api/bandejas/antiguos/workflowv1",
+                           "load": false,
+                           "showyear":true
                         }
                      ]
                   }
-               ]               
+               ]
          }
       ],         
       "reportes":[
          {
             "id":"r",
             "label":"Reportes",
-            "description":"Reportes de Compras",
-            "url":"/reportes",
+            "description":"Reportes de todos los flujos",            
             "children": [
                   {
                      "id":"ru",
                      "label":"Dias por Usuario",
                      "description":"Reporte de Dias por Usuario",
-                     "url":"/reportes/dias-por-usuario"
+                     "url":"/reportes/dias-por-usuario",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"ro",
                      "label":"Ordenes de Compras",
                      "description":"Reporte de Ordenes de Compras",
-                     "url":"/reportes/ordenes-de-compras"
+                     "url":"/reportes/ordenes-de-compras",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"rp",
                      "label":"Seguimiento de Pagos",
                      "description":"Reporte de Seguimiento de Pagos",
-                     "url":"/reportes/seguimiento-de-pagos"
+                     "url":"/reportes/seguimiento-de-pagos",
+                     "load": false,
+                     "showyear":true
                   }
             ]
          }
@@ -243,56 +228,68 @@ const treeMenu = {
          {
             "id":"b",
             "label":"Bandejas",
-            "description":"Bandejas de Boletas de Garantía",
-            "url":"/bandejas",
+            "description":"Bandejas de todos los flujos",            
             "children":[
                   {
                      "id":"be",
                      "label":"De Entrada",
                      "description":"Bandeja de Entrada",
-                     "url":"/bandejas/entrada"
+                     "url": "/api/bandejas/entrada",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bs",
                      "label":"De Salida",
-                     "description":"Bandeja de Salida" ,
-                     "url":"/bandejas/salida"      
+                     "description":"Bandeja de Salida",
+                     "url": "/api/bandejas/salida",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bf",
                      "label":"De Finalizados",
                      "description":"Bandeja de Finalizados",
-                     "url":"/bandejas/finalizados"              
+                     "url": "/api/bandejas/finalizados",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bo",
                      "label":"De Otros",
                      "description":"Bandeja de Otros",
-                     "url":"/bandejas/otros"               
+                     "url": "/api/bandejas/otros",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"ba",
                      "label":"De Archivados",
                      "description":"Bandeja de Archivados",
-                     "url":"/bandejas/archivados"
+                     "url": "/api/bandejas/archivados",
+                     "load": true,
+                     "showyear":true
                   },
                   {
                      "id":"bn",
                      "label":"De Antiguos",
-                     "description":"Bandeja de Antiguos",
-                     "url":"/bandejas/antiguos",
+                     "description":"Bandeja de Antiguos",                     
                      "children":[
                         {
                            "id":"bnc",
                            "label":"Sistema de Compras v0",
                            "description":"Requerimientos Sistema de Compras v0",
-                           "url":"/bandejas/antiguos/compras"                     
+                           "url": "/api/bandejas/antiguos/compra",
+                           "load": false,
+                           "showyear":true
                         },
                         {
                            "id":"bnw",
                            "label":"Sistema WorkFlow v1",
                            "description":"Requerimientos Sistema WorkFlow v1",
-                           "url":"/bandejas/antiguos/workflowv1"
+                           "url": "/api/bandejas/antiguos/workflowv1",
+                           "load": false,
+                           "showyear":true
                         }
                      ]
                   }
@@ -303,26 +300,31 @@ const treeMenu = {
          {
             "id":"r",
             "label":"Reportes",
-            "description":"Reportes de Boletas de Garantías",
-            "url":"/reportes",
+            "description":"Reportes de todos los flujos",            
             "children": [
                   {
                      "id":"ru",
                      "label":"Dias por Usuario",
                      "description":"Reporte de Dias por Usuario",
-                     "url":"/reportes/dias-por-usuario"
+                     "url":"/reportes/dias-por-usuario",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"ro",
                      "label":"Ordenes de Compras",
                      "description":"Reporte de Ordenes de Compras",
-                     "url":"/reportes/ordenes-de-compras"
+                     "url":"/reportes/ordenes-de-compras",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"rp",
                      "label":"Seguimiento de Pagos",
                      "description":"Reporte de Seguimiento de Pagos",
-                     "url":"/reportes/seguimiento-de-pagos"
+                     "url":"/reportes/seguimiento-de-pagos",
+                     "load": false,
+                     "showyear":true
                   }
             ]
          }
@@ -335,66 +337,80 @@ const treeMenu = {
          {
             "id":"b",
             "label":"Bandejas",
-            "description":"Bandejas de Pagos",
-            "url":"/bandejas",
+            "description":"Bandejas de todos los flujos",            
             "children":[
-               {
-                  "id":"be",
-                  "label":"De Entrada",
-                  "description":"Bandeja de Entrada",
-                  "url":"/bandejas/entrada"               
-               },
-               {
-                  "id":"bs",
-                  "label":"De Salida",
-                  "description":"Bandeja de Salida",
-                  "url":"/bandejas/salida"           
-               },
-               {
-                  "id":"bf",
-                  "label":"De Finalizados",
-                  "description":"Bandeja de Finalizados",
-                  "url":"/bandejas/finalizados"           
-               },
-               {
-                  "id":"bo",
-                  "label":"De Otros",
-                  "description":"Bandeja de Otros",
-                  "url":"/bandejas/otros"    
-               },
-               {
-                  "id":"ba",
-                  "label":"De Archivados",
-                  "description":"Bandeja de Archivados",
-                  "url":"/bandejas/archivados"
-               }
-            ]
+                  {
+                     "id":"be",
+                     "label":"De Entrada",
+                     "description":"Bandeja de Entrada",
+                     "url": "/api/bandejas/entrada",
+                     "load": true,
+                     "showyear":true
+                  },
+                  {
+                     "id":"bs",
+                     "label":"De Salida",
+                     "description":"Bandeja de Salida",
+                     "url": "/api/bandejas/salida",
+                     "load": true,
+                     "showyear":true
+                  },
+                  {
+                     "id":"bf",
+                     "label":"De Finalizados",
+                     "description":"Bandeja de Finalizados",
+                     "url": "/api/bandejas/finalizados",
+                     "load": true,
+                     "showyear":true
+                  },
+                  {
+                     "id":"bo",
+                     "label":"De Otros",
+                     "description":"Bandeja de Otros",
+                     "url": "/api/bandejas/otros",
+                     "load": true,
+                     "showyear":true
+                  },
+                  {
+                     "id":"ba",
+                     "label":"De Archivados",
+                     "description":"Bandeja de Archivados",
+                     "url": "/api/bandejas/archivados",
+                     "load": true,
+                     "showyear":true
+                  }
+               ]
          }
       ],         
       "reportes":[
          {
             "id":"r",
             "label":"Reportes",
-            "description":"Reportes de Pagos",
-            "url":"/reportes",
+            "description":"Reportes de todos los flujos",            
             "children": [
                   {
                      "id":"ru",
                      "label":"Dias por Usuario",
                      "description":"Reporte de Dias por Usuario",
-                     "url":"/reportes/dias-por-usuario"
+                     "url":"/reportes/dias-por-usuario",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"ro",
                      "label":"Ordenes de Compras",
                      "description":"Reporte de Ordenes de Compras",
-                     "url":"/reportes/ordenes-de-compras"
+                     "url":"/reportes/ordenes-de-compras",
+                     "load": false,
+                     "showyear":true
                   },
                   {
                      "id":"rp",
                      "label":"Seguimiento de Pagos",
                      "description":"Reporte de Seguimiento de Pagos",
-                     "url":"/reportes/seguimiento-de-pagos"
+                     "url":"/reportes/seguimiento-de-pagos",
+                     "load": false,
+                     "showyear":true
                   }
             ]
          }
@@ -405,38 +421,47 @@ const treeMenu = {
    {
        "id":"m",
        "label":"Mantenedores",
-       "description":"Mantenedores de todos los flujos",
-       "url":"/mantenedores",
+       "description":"Mantenedores de todos los flujos",       
        "children":[
                {
                    "id":"mu",
                    "label":"Usuarios",
                    "description":"Mantenedor de Usuarios",
-                   "url":"/mantenedores/usuarios"
+                   "url":"/api/mantenedores/usuarios",
+                   "load": false,
+                   "showyear":true
                },
                {
                    "id":"ml",
                    "label":"Lista Desplegables",
                    "description":"Mantenedor de Lista Desplegables",
-                   "url":"/mantenedores/lista-desplegable"
+                   "url":"/api/mantenedores/listas-desplegable",
+                   "load": false,
+                   "showyear":true
                },
                {
                    "id":"mi",
                    "label":"Items Lista Desplegables",
                    "description":"Mantenedor de Items Lista Desplegables",
-                   "url":"/mantenedores/item-lista-desplegable"
+                   "url":"/api/mantenedores/items-lista-desplegable",
+                   "load": false,
+                   "showyear":true
                },
                {
                    "id":"mp",
                    "label":"Proveedores",
                    "description":"Mantenedor de proveedoress",
-                   "url":"/mantenedores/proveedores"
+                   "url":"/api/mantenedores/proveedores",
+                   "load": false,
+                   "showyear":true
                },
                {
                    "id":"mc",
                    "label":"Comunas",
                    "description":"Mantenedor de comunas",
-                   "url":"/mantenedores/comunas"
+                   "url":"/api/mantenedores/comunas",
+                   "load": false,
+                   "showyear":true
                }
        ]
    }],
@@ -444,36 +469,42 @@ const treeMenu = {
        {
        "id":"j",
        "label":"Mensajes",
-       "description":"Mensajes personales",
-       "url":"/mensajes",
+       "description":"Mensajes personales",       
        "children":[
            {
                "id":"jr",
                "label":"Recibidos",
                "description":"Mensajes Recibidos",
-               "url":"/mensajes/recibidos"
+               "url": "/api/mensajes/entrada",
+               "load": true,
+               "showyear":true
            },
            {
                "id":"je",
                "label":"Enviados",
                "description":"Mensajes Enviados",
-               "url":"/mensajes/enviados"
+               "url": "/api/mensajes/enviados",
+               "load": false,
+               "showyear":true
            },
            {
                "id":"jb",
                "label":"Borradores",
                "description":"Mensajes Borradores",
-               "url":"/mensajes/borradores"
+               "url": "/api/mensajes/borradores",
+               "load": false,
+               "showyear":true
            },
            {
                "id":"jl",
                "label":"Eliminados",
                "description":"Mensajes Eliminados",
-               "url":"/mensajes/eliminados"
-           }
-       ]         
+               "url": "/api/mensajes/eliminados",
+               "load": false,
+               "showyear":true
+           }]         
        }
-   ],
+   ]
 }
 
 //Login
@@ -492,8 +523,7 @@ export const postLogin = async (req, res) => {
       
       const data = result.recordset[0]
       data.error = 200
-      data.message = null
-      data.bandejas = bandejas
+      data.message = null      
       data.treeMenu = treeMenu
       const usrId = data.USR_Id
       const usrIdentificadorSender = data.USR_Identificador
