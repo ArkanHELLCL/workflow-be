@@ -61,7 +61,7 @@ const treeMenu = {
                            "id":"bnc",
                            "label":"Sistema de Compras v0",
                            "description":"Requerimientos Sistema de Compras v0",
-                           "url": "/api/bandejas/antiguos/compra",
+                           "url": "/api/bandejas/antiguos/compras",
                            "load": false,
                            "showyear":true
                         },
@@ -170,7 +170,7 @@ const treeMenu = {
                            "id":"bnc",
                            "label":"Sistema de Compras v0",
                            "description":"Requerimientos Sistema de Compras v0",
-                           "url": "/api/bandejas/antiguos/compra",
+                           "url": "/api/bandejas/antiguos/compras",
                            "load": false,
                            "showyear":true
                         },
@@ -279,7 +279,7 @@ const treeMenu = {
                            "id":"bnc",
                            "label":"Sistema de Compras v0",
                            "description":"Requerimientos Sistema de Compras v0",
-                           "url": "/api/bandejas/antiguos/compra",
+                           "url": "/api/bandejas/antiguos/compras",
                            "load": false,
                            "showyear":true
                         },
