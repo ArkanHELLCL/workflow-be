@@ -506,6 +506,19 @@ const treeMenu = {
        }
    ]
 }
+const rangeDays = [
+   { id: 1, title: 'Hoy', desde: 0, hasta: 0, showdia:false },
+   { id: 2, title: 'Ayer', desde: 1, hasta: 1, showdia:false },
+   { id: 3, title: null, desde: 2, hasta: 2, showdia:false },
+   { id: 4, title: null, desde: 3, hasta: 3, showdia:false},
+   { id: 5, title: null, desde: 4, hasta: 4, showdia:false },
+   { id: 6, title: 'Semana pasada', desde: 5, hasta: 12, showdia:true },
+   { id: 7, title: 'Hace dos semanas', desde: 13, hasta: 19, showdia:true },
+   { id: 8, title: 'Hace tres semanas', desde: 20, hasta: 26, showdia:true },
+   { id: 9, title: 'Hace un mes', desde: 27, hasta: 56, showdia:true },
+   { id: 10, title: 'Más de dos meses', desde: 57, hasta: 86, showdia:true },
+   { id: 11, title: 'Más antiguos', desde: 87, hasta:null, showdia:false, showyear:true },   
+]
 
 //Login
 export const postLogin = async (req, res) => {
@@ -525,6 +538,7 @@ export const postLogin = async (req, res) => {
       data.error = 200
       data.message = null      
       data.treeMenu = treeMenu
+      data.rangeDays = rangeDays
       const usrId = data.USR_Id
       const usrIdentificadorSender = data.USR_Identificador
       const perId = data.PER_Id
