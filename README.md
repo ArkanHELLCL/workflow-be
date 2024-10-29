@@ -7,7 +7,7 @@
 
 1. Clona el repositorio:
     ```sh
-    git clone https://github.com/tu-usuario/tu-repositorio.git
+    git clone https://github.com/ArkanHELLCL/workflow-be.git
     ```
 2. Navega al directorio del proyecto:
     ```sh
@@ -24,7 +24,7 @@
     ```sh
     npm start
     ```
-2. Abre tu navegador y navega a `http://localhost:3000`.
+2. Abre tu navegador y navega a `http://localhost:3100`.
 
 ## Validación de Requerimientos
 
