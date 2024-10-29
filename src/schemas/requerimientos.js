@@ -22,7 +22,7 @@ const reqSchema = z.object({
     usrFechaRespuesta: z.string(),
     usrHoraRespuesta: z.string(),
     usrFechaCierre: z.string(),
-    usrHoraCierre: z.string()
+    usrHoraCierre: z.string().optional(),       //no requerido
 })
 
 export function validateReq(input) {
