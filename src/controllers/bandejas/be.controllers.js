@@ -203,6 +203,7 @@ const botones = [
        }           
     ]
 ]
+const adjutnos = []
 //Bandeja de entrada
 export const getBE = async (req, res) => {
     // Crear schema para validar los datos de entrada
@@ -243,7 +244,7 @@ export const getBE = async (req, res) => {
                     .input("usrId",usrId)
                     .input("usrIdentificadorSender",usrIdentificadorSender)
                     .query("exec [spDatoRequerimientoBEJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
-            //data.find(el => el.id === 'bo').registros = result.recordset
+            
             data.registros = result.recordset
             res.status(200).json(data)        
 
@@ -296,8 +297,8 @@ export const getBEid = async (req, res) => {
             {
                 "bandeja" : "be",
                 "botones": botones,
-                "campos": [],
-                "adjuntos":[]
+                "adjuntos":adjutnos,
+                "campos": [],                
             }
             const  FDI_PasoActivacion = data[0].FLD_Id
             let VFO_Id = null                        
