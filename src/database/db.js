@@ -2,16 +2,18 @@ import sql from 'mssql/msnodesqlv8.js'
 
 const dbSettings = {
     driver: 'msnodesqlv8',
-    /*user: process.env.DB_USER,
-    password: process.env.DB_PASS,*/
+
+    //user: process.env.DB_USER,
+    //password: process.env.DB_PASSWORD,
+
     server: process.env.DB_HOST,
     database: process.env.DB_DATABASE,
     options: {      
       trustedConnection: true
-    },  
+    },
 }
 const connection = async () => {
-    console.log('Conectado a la BD')
+    console.log('Conectando a la BD')
     try {
       const pool = await sql.connect(dbSettings);
       console.log('Conexion exitosa');
