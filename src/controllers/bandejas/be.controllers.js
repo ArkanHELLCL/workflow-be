@@ -1,7 +1,5 @@
-import jwt from 'jsonwebtoken'
-import connection from '../../database/db.js'
 import { validateReq, validatePartialReq } from '../../schemas/requerimientos.js'
-
+import { spDatoRequerimientoBE_Listar, spDatoRequerimiento_Consultar, spFormularioDiseno_Listar } from '../../database/qrys/index.js'
 
 const botones = [
     [
@@ -204,9 +202,10 @@ const botones = [
     ]
 ]
 const adjutnos = []
+
 //Bandeja de entrada
 export const getBE = async (req, res) => {
-    // Crear schema para validar los datos de entrada
+    //Rescatando datos del payload del token
     const token = req.cookies.access_token
     if(!token){
         res.status(401).json({"error":401,message:"No autorizado"});
@@ -217,36 +216,14 @@ export const getBE = async (req, res) => {
         res.status(404).json({"error":404,message:"Recurso no encontrado"});
         return;
     }    
-
-    //Rescatando datos del payload del token
-    try {
-        let usrId
-        let usrIdentificadorSender
-        jwt.verify(token, process.env.JWT_SECRETO, function(err, decoded) {            
-            if (err) {                
-                throw new Error('No autorizado')
-            }
-            const { usrId : usr_Id, usrIdentificadorSender : usr_IdentificadorSender } = decoded
-            usrId = usr_Id
-            usrIdentificadorSender = usr_IdentificadorSender
-        })
-        const data =  
-            {
-                "id" : "be",
-                "registros": null
-            }  
-
-            const pool = await connection()
-            const result = await pool
-                    .request()
-                    .input("PageNumber", PageNumber)
-                    .input("RowsOfPage", RowsOfPage)
-                    .input("usrId",usrId)
-                    .input("usrIdentificadorSender",usrIdentificadorSender)
-                    .query("exec [spDatoRequerimientoBEJSON_Listar] @PageNumber, @RowsOfPage, @usrId, @usrIdentificadorSender");
-            
-            data.registros = result.recordset
-            res.status(200).json(data)        
+    
+    try {        
+        const data = {
+            "id" : "be",
+            "registros": null
+        }
+        data.registros = await spDatoRequerimientoBE_Listar(token, PageNumber, RowsOfPage)                         
+        res.status(200).json(data)        
 
     }catch (error) {
         if(error.message === 'No autorizado'){
@@ -259,6 +236,7 @@ export const getBE = async (req, res) => {
 
 export const getBEid = async (req, res) => {    
     const { id } = req.params
+    //Rescatando datos del payload del token
     const token = req.cookies.access_token
     if(!token){
         res.status(401).json({"error":401,message:"No autorizado"});
@@ -268,30 +246,11 @@ export const getBEid = async (req, res) => {
         res.status(404).json({"error":404,message:"Recurso no encontrado"});
         return;
     }    
-
-    //Rescatando datos del payload del token
+    
     try {
-        let usrId
-        let usrIdentificadorSender
-        let data
-        jwt.verify(token, process.env.JWT_SECRETO, function(err, decoded) {            
-            if (err) {                
-                throw new Error('No autorizado')
-            }
-            const { usrId : usr_Id, usrIdentificadorSender : usr_IdentificadorSender } = decoded
-            usrId = usr_Id
-            usrIdentificadorSender = usr_IdentificadorSender
-        })
+        const data = await spDatoRequerimiento_Consultar(token, id)                         
+        console.log(data)
 
-        const pool = await connection()
-        const result = await pool
-                .request()
-                .input("id", id)                    
-                .input("usrId",usrId)
-                .input("usrIdentificadorSender",usrIdentificadorSender)
-                .query("exec [spDatoRequerimientoJSON_Consultar] @id, @usrId, @usrIdentificadorSender");
-        
-        data = result.recordset        
         if(data.length > 0){         
             const data2 =  
             {
@@ -305,17 +264,8 @@ export const getBEid = async (req, res) => {
             if(data[0]?.VFO_Id)
                 VFO_Id = data[0].VFO_Id
             const FOR_Id = data[0].FOR_Id
-            
-            const result2 = await pool
-                .request()
-                .input("FDI_PasoActivacion", FDI_PasoActivacion)
-                .input("FOR_Id", FOR_Id)
-                .input("VFO_Id", VFO_Id)
-                .input("usrId",usrId)
-                .input("usrIdentificadorSender",usrIdentificadorSender)
-                .query("exec [spFormularioDisenoJSON_Listar] @FDI_PasoActivacion, @FOR_Id, @VFO_Id, @usrId, @usrIdentificadorSender");
 
-            data2.campos = result2.recordset            
+            data2.campos = await spFormularioDiseno_Listar(token, FDI_PasoActivacion, FOR_Id, VFO_Id)
             res.status(200).json(data2)
         }else{
                 throw new Error('Registro no encontrado')
