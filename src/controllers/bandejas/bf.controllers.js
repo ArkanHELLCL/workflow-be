@@ -226,7 +226,7 @@ export const getBF = async (req, res) => {
 
     }catch (error) {
         if(error.message === 'No autorizado'){
-            res.status(401).json({"id":"be","error":401,message:error.message});
+            res.status(401).json({"id":"bf","error":401,message:error.message});
             return;
         }
         res.status(500).json({"id":"bf","error":500,message:error.message});
