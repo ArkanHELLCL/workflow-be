@@ -11,6 +11,9 @@ const dbSettings = {
     options: {      
       trustedConnection: true
     },
+    pool: {
+        idleTimeoutMillis: 100000
+    }
 }
 const connection = async () => {
     console.log('Conectando a la BD')

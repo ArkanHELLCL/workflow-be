@@ -554,7 +554,7 @@ export const postLogin = async (req, res) => {
                //secure: process.env.NODE_ENV === 'production' ? true : false,
                secure: true,
                //sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',  //strict
-               sameSite: 'none',
+               //sameSite: 'lax',
                maxAge: 1000 * 60 * 60, //1 hora
                credentials: 'include',
                mode: 'cors'                
