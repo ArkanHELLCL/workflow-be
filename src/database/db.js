@@ -1,5 +1,6 @@
 import sql from 'mssql/msnodesqlv8.js'
 
+process.loadEnvFile();
 const dbSettings = {
     driver: 'msnodesqlv8',
 

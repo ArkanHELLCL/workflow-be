@@ -3,6 +3,7 @@ import http from 'http'
 import { Server as SocketServer } from 'socket.io'
 import app from './app.js';
 
+process.loadEnvFile();
 //setting
 app.set('port', process.env.PORT || 3000)
 
